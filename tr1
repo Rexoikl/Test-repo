@@ -1,0 +1,20 @@
+  constructor(string memory name_, string memory symbol_){
+        name = name_;
+        symbol = symbol_;
+        owner = msg.sender;
+    }
+
+    // @dev 实现`transfer`函数，代币转账逻辑
+    function transfer(address recipient, uint amount) external override returns (bool) {
+        balanceOf[msg.sender] -= amount;
+        balanceOf[recipient] += amount;
+        emit Transfer(msg.sender, recipient, amount);
+        return true;
+    }
+
+    // @dev 实现 `approve` 函数, 代币授权逻辑
+    function approve(address spender, uint amount) external override returns (bool) {
+        allowance[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
